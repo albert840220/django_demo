@@ -73,3 +73,13 @@ def show_datatable(request):
     records = Transaction.objects.all()
     print(records)
     return render(request, "datatable-test.html", {'records': records})
+
+def chartjs(request):
+    labels = []
+    data = []
+    data1 = Calibration.objects.order_by('id')[:5].values_list('id', 'Offset','Slope')
+    labels, offset, slope= zip(*data1) # zip出來為tuple
+    labels = list(labels)
+    offset = [float(i) for i in offset]
+    slope = [float(i) for i in slope]
+    return render(request, 'chartjs.html', {'labels': labels,'offset': offset, 'slope': slope})
