@@ -70,8 +70,7 @@ def trans(request):
     return render(request,"transactions1.html",{'calibrations':calibrations})
 
 def show_datatable(request):
-    records = Transaction.objects.all()
-    print(records)
+    records = Calibration.objects.values('c_datetime','Rfid','SensorSN','Slope','Offset')
     return render(request, "datatable-test.html", {'records': records})
 
 def chartjs(request):
