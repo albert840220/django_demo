@@ -7,6 +7,12 @@ from django.views import View
 from electrodes.forms import ProfileForm, form_validation_error, CalibrationForm
 from electrodes.models import Profile, Calibration, Transaction
 
+#多條件查詢圖表
+from plotly.offline import plot
+import plotly.graph_objs as go
+from django.db import connection
+import pandas as pd
+
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class ProfileView(View):
     profile = None
@@ -82,3 +88,42 @@ def chartjs(request):
     offset = [float(i) for i in offset]
     slope = [float(i) for i in slope]
     return render(request, 'chartjs.html', {'labels': labels,'offset': offset, 'slope': slope})
+
+def multi_condition(request):
+    start_date = None
+    end_date = None
+    plot_div = None
+    if request.method == 'POST':
+        # records = Transaction.objects.all()
+        cursor = connection.cursor()
+        query = f"""SELECT * FROM calibrations"""
+        df = pd.read_sql_query(query, connection)
+        df = df.sort_values(by=['c_datetime'])
+        if bool(request.POST['start_time']) and bool(request.POST['end_time']):
+            print('in')
+            start_date = request.POST['start_time']
+            end_date = request.POST['end_time']
+            df = df[
+                (df['c_datetime'] > f'{start_date} 00:00:00') & (df['c_datetime'] < f'{end_date} 23:59:59')]
+            print(f"{df}")
+
+        if bool(request.POST['sn_number']):
+            sn_number = request.POST['sn_number']
+            print(sn_number)
+            df = df[(df['SensorSN'] == sn_number)]
+            print(f"sn_number: {df}")
+        # up down show
+        data = go.Scatter(x=df['c_datetime'], y=df['Slope'],
+                          mode='lines', name='test',
+                          opacity=0.8, marker_color='green')
+        layout = go.Layout(height=400, title='Slope',
+                           legend=dict(x=0.4, y=-0.3, traceorder='normal', font=dict(size=12,))
+                           )
+        fig = go.Figure(data=data, layout=layout)
+        fig['data'][0]['showlegend'] = True
+        fig['data'][0]['name'] = f"{request.POST['sn_number']}"
+        fig.update_layout(title_x=0.5, hovermode='x')
+        plot_div = plot(fig, output_type='div')
+
+        return render(request, "query.html", {'plot_div': plot_div})
+    return render(request, "query.html")

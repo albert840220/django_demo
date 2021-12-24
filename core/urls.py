@@ -19,7 +19,8 @@ urlpatterns = [
     path('delete/<int:id>', v.destroy),
     path('transactions1', v.trans),
     path('datatable-test', v.show_datatable),
-    path('chart-js', v.chartjs, name='chart.js')
+    path('chart-js', v.chartjs, name='chart.js'),
+    path('query', v.multi_condition)
 ]
 
 if settings.DEVEL:

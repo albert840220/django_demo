@@ -1,0 +1,57 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} 電極查詢 {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+        <div>
+            <div class="col-md-12" style="display: inline-block;">
+            {% autoescape off %}
+            {{ plot_div }}
+
+            {% endautoescape %}
+            </div>
+            <div class="col-5" style="display: inline-block;">
+                {% autoescape off %}
+                {{ plot_div1 }}
+                {% endautoescape %}
+            </div>
+            <div class="col-5" style="display: inline-block;">
+                {% autoescape off %}
+                {{ plot_compare }}
+                {% endautoescape %}
+            </div>
+        </div>
+        <form action = "/query" method = "post">
+            {% csrf_token %}
+            <div>
+                <label for="sn_number">SN number: </label>
+            <input id="sn_number" type="text" name="sn_number">
+            </div>
+            <div>
+                <label for="start_time">Start Time: </label>
+            <input id="start_time" type="text" name="start_time">
+            </div>
+            <div>
+                <label for="end_time">End Time: </label>
+                <input id="end_time" type="text" name="end_time">
+            </div>
+            
+            <input type="submit" value="搜尋">
+        </form>
+
+        {% include 'includes/footer.html' %}
+
+    </main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

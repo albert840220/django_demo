@@ -83,22 +83,34 @@
         var table = $('#example').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                'copy',
                 {
                       extend: 'excel',
-                      text: 'Export to Excel',
+                      text: 'Excel',
                       className: 'btn btn-default',
                       exportOptions: {
                           columns: ':not(.notexport)'
                       },},
                       {
                       extend: 'csv',
-                      text: 'Export to CSV',
+                      text: 'CSV',
                       className: 'btn btn-default',
                       exportOptions: {
                           columns: ':not(.notexport)'
                       },},
-                       'pdf', 'print'
+                      {
+                      extend: 'pdf',
+                      text: 'PDF',
+                      className: 'btn btn-default',
+                      exportOptions: {
+                          columns: ':not(.notexport)'
+                      },}, 
+                       {
+                      extend: 'print',
+                      text: '列印',
+                      className: 'btn btn-default',
+                      exportOptions: {
+                          columns: ':not(.notexport)'
+                      },}, 
             ],
             "autoWidth": true,
             "scrollX": true,
