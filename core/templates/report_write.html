@@ -1,0 +1,136 @@
+{% extends "layouts/base.html" %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block title %}Add New Report{% endblock title %}
+
+{% block content %}
+<main class="content">
+  <div class="col-md-12">
+
+
+    <form method="POST" class="post-form" action="/report_write">
+      {% csrf_token %}
+      <div class="container">
+        <br>
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label"></label>
+          <div class="col-sm-6">
+            <h3>請填寫檢測報告書：</h3>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">出貨日期:</label>
+          <div class="col-sm-4">
+            {{ form.delivery_date }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">業主/現場聯絡人:</label>
+          <div class="col-sm-4">
+            {{ form.client }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">發生日期:</label>
+          <div class="col-sm-4">
+            {{ form.incident_date }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">使用壽命:</label>
+          <div class="col-sm-4">
+            {{ form.lifetime }}
+          </div>
+          <label class="col-sm-3 col-form-label">單位</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">負責人:</label>
+          <div class="col-sm-4">
+            {{ form.hswe_name }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">上線日期:</label>
+          <div class="col-sm-4">
+            {{ form.online_date }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">序號:</label>
+          <div class="col-sm-4">
+            {{ form.sn }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">取回日期:</label>
+          <div class="col-sm-4">
+            {{ form.return_date }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">系統 & Tag NO:</label>
+          <div class="col-sm-4">
+            {{ form.system }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">檢測日期:</label>
+          <div class="col-sm-4">
+            {{ form.start_date }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">pH值 / 測值:</label>
+          <div class="col-sm-4">
+            {{ form.sample_value }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">導電度:</label>
+          <div class="col-sm-4">
+            {{ form.sample_conductivity }}
+          </div>
+          <label class="col-sm-3 col-form-label">單位</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">壓力:</label>
+          <div class="col-sm-4">
+            {{ form.sample_pressure }}
+          </div>
+          <label class="col-sm-3 col-form-label">單位</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">溫度:</label>
+          <div class="col-sm-4">
+            {{ form.sample_temperature }}
+          </div>
+          <label class="col-sm-3 col-form-label">°C</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">安裝方式:</label>
+          <div class="col-sm-4">
+            {{ form.install_type }}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">電極平均壽命:</label>
+          <div class="col-sm-4">
+            {{ form.avg_life }}
+          </div>
+          <label class="col-sm-3 col-form-label">天</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label"></label>
+          <div class="col-sm-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock content %}
+
+{% block javascripts %}{% endblock javascripts %}

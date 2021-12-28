@@ -66,3 +66,34 @@ class Transaction(models.Model):
         db_table = 'datatable'
         # verbose_name = 'transaction'
         # verbose_name_plural = ''
+
+class Inspection(models.Model):
+    form_id = models.CharField(max_length=20, null=False)
+    delivery_date = models.DateField( null=False)
+    client = models.CharField(max_length=20, null=False)
+    incident_date = models.DateField( null=False)
+    lifetime = models.IntegerField(null=False)
+    hswe_name = models.CharField(max_length=20, null=False)
+    online_date = models.DateField( null=False)
+    type = models.CharField(max_length=20, null=False)
+    sn = models.CharField(max_length=20, null=False)
+    return_date = models.DateField(null=False)
+    system = models.CharField(max_length=20, null=False)
+    tag_no = models.CharField(max_length=20, null=False)
+    start_date = models.DateField(null=False)
+    end_date = models.DateField( null=False)
+    # error_report , null=False)
+    sample_value = models.FloatField( null=False)
+    sample_conductivity = models.FloatField( null=False)
+    sample_pressure = models.FloatField(null=False)
+    sample_temperature = models.FloatField( null=False)
+    install_type = models.CharField(max_length=20, null=False)
+    avg_life = models.IntegerField( null=False)
+
+    # description =
+    # result =
+    # system =
+    # tag_no =
+    class Meta:
+        db_table = 'inspections'
+

@@ -20,7 +20,10 @@ urlpatterns = [
     path('transactions1', v.trans),
     path('datatable-test', v.show_datatable),
     path('chart-js', v.chartjs, name='chart.js'),
-    path('query', v.multi_condition)
+    path('query', v.multi_condition),
+    path('report_write',v.report_write),
+    path('report_search',v.report_search),
+    path('download/<str:form_id>', v.exportToExcel),
 ]
 
 if settings.DEVEL:

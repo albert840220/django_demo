@@ -19,7 +19,7 @@
     new Chart(document.getElementById("line-chart"), {
         type: 'line',
         data: {
-            // labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+            // labels: ["2020-11-19 15:20","2020-11-23 13:20", "2020-11-23 17:20" ,"2020-11-25 11:03", "2020-11-26 11:40"],
             labels: {{ labels| safe}},
         datasets: [{
             // data: [86,114,106,106,107,111,133,221,783,2478],
@@ -27,13 +27,13 @@
         label: "Offset",
         borderColor: "#3e95cd",
         fill: false
-      },
-          { 
+          },
+        {
             data: {{ slope| safe}},
             label: "Slope",
             borderColor: "#8e5ea2",
             fill: false
-          }, 
+          },
         //   { 
         //     data: [168,170,178,190,203,276,408,547,675,734],
         //     label: "Europe",
