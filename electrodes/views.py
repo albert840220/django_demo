@@ -88,13 +88,12 @@ def destroy(request, id):
 
 def trans(request):
     calibrations = Calibration.objects.all()
-    print(calibrations)
     return render(request, "transactions1.html", {'calibrations': calibrations})
 
 
 def show_datatable(request):
     records = Calibration.objects.values('c_datetime', 'Rfid', 'SensorSN', 'Slope', 'Offset')
-    return render(request, "datatable-test.html", {'records': records})
+    return render(request, "calibrations.html", {'records': records})
 
 
 def chartjs(request):
@@ -108,12 +107,14 @@ def chartjs(request):
     return render(request, 'chartjs.html', {'labels': labels, 'offset': offset, 'slope': slope})
 
 
-def multi_condition(request):
+def multi_condition_plot(request):
     start_date = None
     end_date = None
     plot_div = None
+    items = ['Slope','Offset']
+
     if request.method == 'POST':
-        # records = Transaction.objects.all()
+        # print(request.POST)
         cursor = connection.cursor()
         query = f"""SELECT * FROM calibrations"""
         df = pd.read_sql_query(query, connection)
@@ -128,7 +129,6 @@ def multi_condition(request):
 
         if bool(request.POST['sn_number']):
             sn_number = request.POST['sn_number']
-            print(sn_number)
             df = df[(df['SensorSN'] == sn_number)]
             print(f"sn_number: {df}")
         # up down show
@@ -139,13 +139,34 @@ def multi_condition(request):
                            legend=dict(x=0.4, y=-0.3, traceorder='normal', font=dict(size=12, ))
                            )
         fig = go.Figure(data=data, layout=layout)
+        # 單線 顯示legend
         fig['data'][0]['showlegend'] = True
         fig['data'][0]['name'] = f"{request.POST['sn_number']}"
         fig.update_layout(title_x=0.5, hovermode='x')
         plot_div = plot(fig, output_type='div')
 
-        return render(request, "query.html", {'plot_div': plot_div})
-    return render(request, "query.html")
+        data = go.Scatter(x=df['c_datetime'], y=df['Offset'],
+                          mode='lines', name='test',
+                          opacity=0.8, marker_color='red')
+        layout = go.Layout(height=300, title='Offset')
+        fig = go.Figure(data=data, layout=layout)
+        fig.update_layout(title_x=0.5, hovermode='x')
+        plot_div1 = plot(fig, output_type='div')
+        # 兩線合併
+        Slope = go.Scatter(x=df['c_datetime'], y=df['Slope'],
+                           mode='lines', name='Slope',
+                           opacity=0.8, marker_color='green')
+        Offset = go.Scatter(x=df['c_datetime'], y=df['Offset'],
+                            mode='lines', name='Offset',
+                            opacity=0.8, marker_color='red')
+        data = [Slope, Offset]
+        layout = go.Layout(height=400, title='Slope and Offset')
+        fig = go.Figure(data=data, layout=layout)
+        fig.update_layout(title_x=0.5, hovermode='x')
+        plot_compare = plot(fig, output_type='div')
+
+        return render(request, "trends.html", {'plot_div': plot_div,'plot_div1':plot_div1,'plot_compare':plot_compare,'items':items})
+    return render(request, "trends.html", {'items':items})
 
 
 def report_write(request):
@@ -217,9 +238,13 @@ def exportToExcel(request,form_id):
     wb.save(response)
     return response
 
+
 def report_search(request):
     records = Inspection.objects.values('form_id', 'hswe_name')
     return render(request, "report_search.html", {'records': records})
+
+
+
 
 
 
