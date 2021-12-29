@@ -28,7 +28,7 @@
                 {% endautoescape %}
             </div>
         </div>
-        <form action = "/query" method = "post">
+        <form action = "/trends" method = "post">
             {% csrf_token %}
             <div>
                 <label for="sn_number">電極序號: </label>
@@ -42,15 +42,14 @@
                 <label for="end_time">結束時間: </label>
                 <input id="end_time" type="date" name="end_time">
             </div>
-            <div>
+            <!-- <div>
                 <label for="item">項目:</label>
                 <select name="item_id">
                     {% for item in items %}
                         <option value="{{ item }}">{{ item }}</option>
                     {% endfor %}
                 </select> 
-            </div>
-            
+            </div> -->
             <input type="submit" value="搜尋">
         </form>
     </main>

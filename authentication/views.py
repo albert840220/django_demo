@@ -15,6 +15,9 @@ from .forms import LoginForm, SignUpForm
 
 
 def login_view(request):
+    """
+    登入
+    """
     form = LoginForm(request.POST or None)
 
     msg = None
@@ -27,7 +30,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect("/electrodes/profile/")
+                return redirect("/report_write")
             else:
                 msg = 'Invalid credentials'
         else:

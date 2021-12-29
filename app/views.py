@@ -12,11 +12,10 @@ from django import template
 
 @login_required(login_url="/login/")
 def index(request):
-    context = {'segment': 'index'}
-
-    html_template = loader.get_template('index.html')
-    return HttpResponse(html_template.render(context, request))
-
+    """
+    已登入後的 http://127.0.0.1:8000/ 自動導向 /report_write
+    """
+    return redirect("/report_write")
 
 @login_required(login_url="/login/")
 def pages(request):
@@ -27,7 +26,6 @@ def pages(request):
 
         load_template = request.path.split('/')[-1]
         context['segment'] = load_template
-
         html_template = loader.get_template(load_template)
         return HttpResponse(html_template.render(context, request))
 

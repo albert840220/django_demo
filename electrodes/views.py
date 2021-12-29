@@ -13,89 +13,20 @@ import plotly.graph_objs as go
 from django.db import connection
 import pandas as pd
 
-import locale
-
 #下載excel
 import openpyxl
 from django.utils.http import urlquote
 from django.http import HttpResponse
 
+from django.conf import settings
 
-@method_decorator(login_required(login_url='login'), name='dispatch')
-class ProfileView(View):
-    profile = None
-
-    def dispatch(self, request, *args, **kwargs):
-        self.profile, __ = Profile.objects.get_or_create(user=request.user)
-        return super(ProfileView, self).dispatch(request, *args, **kwargs)
-
-    def get(self, request):
-        context = {'profile': self.profile, 'segment': 'profile'}
-        return render(request, 'electrodes/profile.html', context)
-
-    def post(self, request):
-        form = ProfileForm(request.POST, request.FILES, instance=self.profile)
-
-        if form.is_valid():
-            profile = form.save()
-            profile.user.first_name = form.cleaned_data.get('first_name')
-            profile.user.last_name = form.cleaned_data.get('last_name')
-            profile.user.email = form.cleaned_data.get('email')
-            profile.user.save()
-
-            messages.success(request, 'Profile saved successfully')
-        else:
-            messages.error(request, form_validation_error(form))
-        return redirect('profile')
-
-
-def addnew(request):
-    if request.method == "POST":
-        form = CalibrationForm(request.POST)
-        if form.is_valid():
-            try:
-                form.save()
-                return redirect('/transactions1')
-            except:
-                pass
-
-    else:
-        form = CalibrationForm()
-    return render(request, 'addnew.html', {'form': form})
-
-
-def edit(request, id):
-    calibration = Calibration.objects.get(id=id)
-    return render(request, 'edit.html', {'calibration': calibration})
-
-
-def update(request, id):
-    calibration = Calibration.objects.get(id=id)
-    form = CalibrationForm(request.POST, instance=calibration)
-    print(form)
-    if form.is_valid():
-        form.save()
-        print('alre save')
-        return redirect("/transactions1")
-    return render(request, 'edit.html', {'calibration': calibration})
-
-
-def destroy(request, id):
-    employee = Calibration.objects.get(id=id)
-    employee.delete()
-    return redirect("/transactions1")
-
-
-def trans(request):
-    calibrations = Calibration.objects.all()
-    return render(request, "transactions1.html", {'calibrations': calibrations})
-
-
-def show_datatable(request):
+@login_required(login_url="/login/")
+def datatable_calibration(request):
     records = Calibration.objects.values('c_datetime', 'Rfid', 'SensorSN', 'Slope', 'Offset')
     return render(request, "calibrations.html", {'records': records})
 
 
+@login_required(login_url="/login/")
 def chartjs(request):
     labels = []
     data = []
@@ -107,11 +38,13 @@ def chartjs(request):
     return render(request, 'chartjs.html', {'labels': labels, 'offset': offset, 'slope': slope})
 
 
+@login_required(login_url="/login/")
 def multi_condition_plot(request):
+    """多條件查詢 + 畫折線圖"""
     start_date = None
     end_date = None
     plot_div = None
-    items = ['Slope','Offset']
+    # items = ['Slope','Offset']
 
     if request.method == 'POST':
         # print(request.POST)
@@ -165,14 +98,15 @@ def multi_condition_plot(request):
         fig.update_layout(title_x=0.5, hovermode='x')
         plot_compare = plot(fig, output_type='div')
 
-        return render(request, "trends.html", {'plot_div': plot_div,'plot_div1':plot_div1,'plot_compare':plot_compare,'items':items})
-    return render(request, "trends.html", {'items':items})
+        return render(request, "trends.html", {'plot_div': plot_div,'plot_div1':plot_div1,'plot_compare':plot_compare}) #,'items':items})
+    return render(request, "trends.html") #, {'items':items})
 
 
+@login_required(login_url="/login/")
 def report_write(request):
+    """填寫檢測報告書"""
     if request.method == "POST":
         form = InspectionForm(request.POST)
-        print(form)
         if form.is_valid():
             # form_id = form.cleaned_data['form_id']
             delivery_date = form.cleaned_data['delivery_date']
@@ -207,9 +141,12 @@ def report_write(request):
         form = InspectionForm()
     return render(request, 'report_write.html', {'form': form})
 
+
+@login_required(login_url="/login/")
 def exportToExcel(request,form_id):
+    """匯出檢測報告書"""
     inspection = Inspection.objects.get(form_id=form_id)
-    wb = openpyxl.load_workbook(filename='C:/Users/user01/Desktop/檢測與檢討報告書.xlsx')
+    wb = openpyxl.load_workbook(filename=f'{settings.BASE_DIR}/檢測與檢討報告書.xlsx')
     sheet = wb.worksheets[0]
     sheet.cell(row=4, column=4, value=f"{inspection.form_id}")  # 報告書編號
     sheet.cell(row=4, column=10, value=f"{inspection.delivery_date}")  # 出貨日期
@@ -239,7 +176,9 @@ def exportToExcel(request,form_id):
     return response
 
 
+@login_required(login_url="/login/")
 def report_search(request):
+    """檢測報告書查詢"""
     records = Inspection.objects.values('form_id', 'hswe_name')
     return render(request, "report_search.html", {'records': records})
 

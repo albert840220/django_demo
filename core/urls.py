@@ -13,12 +13,7 @@ urlpatterns = [
     path('electrodes/', include("electrodes.urls")),  # Django electrodes route
     path("", include("app.urls")),  # UI Kits Html files
     path("", include("authentication.urls")),  # Auth routes - login / register
-    path('addnew',v.addnew),
-    path('edit/<int:id>', v.edit),
-    path('update/<int:id>', v.update),
-    path('delete/<int:id>', v.destroy),
-    path('transactions1', v.trans),
-    path('calibrations', v.show_datatable),
+    path('calibrations', v.datatable_calibration),
     path('chart-js', v.chartjs, name='chart.js'),
     path('trends', v.multi_condition_plot),
     path('report_write',v.report_write),
