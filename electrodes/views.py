@@ -64,6 +64,9 @@ def multi_condition_plot(request):
             sn_number = request.POST['sn_number']
             df = df[(df['SensorSN'] == sn_number)]
             print(f"sn_number: {df}")
+        if df.empty:
+            remind = '找不到符合條件的資料'
+            return render(request, "trends.html",{'remind':remind})
         # up down show
         data = go.Scatter(x=df['c_datetime'], y=df['Slope'],
                           mode='lines', name='test',
