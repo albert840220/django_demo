@@ -1,32 +1,41 @@
-
-    <nav id="sidebarMenu" class="sidebar d-md-block bg-primary text-white collapse px-4">
-        <div class="sidebar-sticky pt-3 mx-auto">
-            <div class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
+<nav id="sidebarMenu" class="sidebar d-md-block bg-primary text-white collapse px-4">
+    <div class="sidebar-sticky pt-3 mx-auto">
+        <div
+            class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
             <div class="d-flex align-items-center">
                 <div class="user-avatar lg-avatar mr-4">
-                <img src="/static/assets/img/team/profile-picture-3.jpg" class="card-img-top rounded-circle border-white" alt="Bonnie Green">
+                    <img src="/static/assets/img/team/default-profile-picture.png"
+                        class="card-img-top rounded-circle border-white" alt="Bonnie Green">
                 </div>
                 <div class="d-block">
-                <h2 class="h6">
-                    {{ request.user.username }}
-                </h2>
-                <a href="{% url 'logout' %}" class="btn btn-secondary text-dark btn-xs">
-                    <span class="mr-2"><span class="fas fa-sign-out-alt"></span></span>Sign Out</a>
+                    <h2 class="h6">
+                        {{ request.user.username }}
+                    </h2>
+                    <a href="{% url 'logout' %}" class="btn btn-secondary text-dark btn-xs">
+                        <span class="mr-2"><span class="fas fa-sign-out-alt"></span></span>Sign Out</a>
                 </div>
             </div>
             <div class="collapse-close d-md-none">
-                <a href="#sidebarMenu" class="fas fa-times" data-toggle="collapse"
-                    data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="true"
-                    aria-label="Toggle navigation"></a>
+                <a href="#sidebarMenu" class="fas fa-times" data-toggle="collapse" data-target="#sidebarMenu"
+                    aria-controls="sidebarMenu" aria-expanded="true" aria-label="Toggle navigation"></a>
             </div>
-            </div>
-            <ul class="nav flex-column">
-            <!-- <li class="nav-item  {% if 'dashboard' in segment %} active {% endif %}">
-                <a href="/dashboard.html" class="nav-link">
-                <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
-                <span>Dashboard</span>
+        </div>
+        <ul class="nav flex-column">
+            <!-- <li class="nav-item">
+                    <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
+                <span>{{ request.user.username }}</span>
+                </li> -->
+            <li class="nav-item  {% if 'dashboard' in segment %} active {% endif %}">
+                <a href="/report_write" class="nav-link">
+                    <div class="media d-flex align-items-center">
+                        <img class="user-avatar md-avatar rounded-circle" alt="Image placeholder"
+                            src="/static/assets/img/team/default-profile-picture.png">
+                        <div class="media-body ml-2 align-items-center d-none d-lg-block">
+                            <span class="mb-0 font-small font-weight-bold">{{ request.user.username }}</span>
+                        </div>
+                    </div>
                 </a>
-            </li> -->
+            </li>
             <!-- <li class="nav-item  {% if 'transactions' in segment %} active {% endif %}">
                 <a href="/transactions.html" class="nav-link">
                     <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
@@ -58,12 +67,13 @@
                 </a>
             </li> -->
             <li class="nav-item">
-                <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#submenu-electrode">
-                <span>
-                    <span class="sidebar-icon"><span class="far fa-file-alt"></span></span> 
-                    電極
-                </span>
-                <span class="link-arrow"><span class="fas fa-chevron-right"></span></span> 
+                <span class="nav-link  collapsed  d-flex justify-content-between align-items-center"
+                    data-toggle="collapse" data-target="#submenu-electrode">
+                    <span>
+                        <span class="sidebar-icon"><span class="far fa-file-alt"></span></span>
+                        電極
+                    </span>
+                    <span class="link-arrow"><span class="fas fa-chevron-right"></span></span>
                 </span>
                 <div class="multi-level collapse " role="list" id="submenu-electrode" aria-expanded="false">
                     <ul class="flex-column nav">
@@ -104,12 +114,13 @@
                 </div>
             </li> -->
             <li class="nav-item">
-                <span class="nav-link  collapsed  d-flex justify-content-between align-items-center" data-toggle="collapse" data-target="#submenu-pages">
-                <span>
-                    <span class="sidebar-icon"><span class="far fa-file-alt"></span></span> 
-                    檢測報告書
-                </span>
-                <span class="link-arrow"><span class="fas fa-chevron-right"></span></span> 
+                <span class="nav-link  collapsed  d-flex justify-content-between align-items-center"
+                    data-toggle="collapse" data-target="#submenu-pages">
+                    <span>
+                        <span class="sidebar-icon"><span class="far fa-file-alt"></span></span>
+                        檢測報告書
+                    </span>
+                    <span class="link-arrow"><span class="fas fa-chevron-right"></span></span>
                 </span>
                 <div class="multi-level collapse " role="list" id="submenu-pages" aria-expanded="false">
                     <ul class="flex-column nav">
@@ -146,7 +157,7 @@
                     <span class="sidebar-icon"><span class="fas fa-sign-out-alt text-danger"></span></span>
                     <span>登出</span>
                 </a>
-            </li>            
+            </li>
             <!-- <li role="separator" class="dropdown-divider mt-4 mb-3 border-black"></li>
             <li class="nav-item">
                 <a href="/" class="nav-link d-flex align-items-center">
@@ -172,7 +183,6 @@
                     <span>PRO Version</span>
                 </a>
             </li> -->
-            </ul>
-        </div>
-    </nav>
-
+        </ul>
+    </div>
+</nav>
