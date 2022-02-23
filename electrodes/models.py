@@ -264,17 +264,32 @@ class EqptCod(models.Model):
     class Meta:
         db_table = "eqpt_COD"
 
+class BusinessSchedule(models.Model):
+    staff_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    visit_date = models.DateField()
+    factory_id = models.ForeignKey(Factory, on_delete=models.CASCADE)
+    customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    purpose_of_visit = models.TextField()
+    state = models.IntegerField(null=True)
+
+    def __str__(self):
+        return f"{self.visit_date}-{self.factory_id.name}-{self.customer_id.customer_name}"
+    class Meta:
+        db_table = "business_schedule"
+
 
 class CustomerSurvey(models.Model):
-    company = models.CharField(max_length=30)
+    form_id = models.ForeignKey(BusinessSchedule, on_delete=models.CASCADE)
+    # company = models.CharField(max_length=30)
     # 工作現場
-    purpose_of_visit = models.CharField(max_length=30)
+    # purpose_of_visit = models.CharField(max_length=30)
     product_description = models.CharField(max_length=30)
     service_attitude = models.CharField(max_length=30)
     customer_advice = models.TextField(null=True, blank=True)
     signature = JSignatureField()
+
     class Meta:
         db_table = "customer_survey"
 
 
-# class BusinessVisit(models.Model):
+

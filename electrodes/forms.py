@@ -1,6 +1,6 @@
 from django import forms
 
-from electrodes.models import Profile, Calibration, Inspection, PmSchedule, Factory, Customer, EqptPh, EqptCod, CustomerSurvey
+from electrodes.models import Profile, Calibration, Inspection, PmSchedule, Factory, Customer, EqptPh, EqptCod, CustomerSurvey,BusinessSchedule
 from jsignature.forms import JSignatureField
 from jsignature.widgets import JSignatureWidget
 description_list = [
@@ -261,18 +261,39 @@ class CustomerSurveyForm(forms.ModelForm):
         model = CustomerSurvey
         fields = '__all__'
         labels = {
-            "company": "公司名稱",
-            "purpose_of_visit": "拜訪目的",
+            # "company": "公司名稱",
+            # "purpose_of_visit": "拜訪目的",
             "product_description": "產品說明",
             "service_attitude": "服務態度",
             "customer_advice": "客戶建議",
             "signature": "簽名",
         }
         widgets = {
-            "company": forms.TextInput(attrs={'class': 'form-control'}),
-            "purpose_of_visit": forms.RadioSelect(choices=purpose_list),
+            "form_id": forms.Select(attrs={'class': 'form-control'}),
+            # "company": forms.TextInput(attrs={'class': 'form-control'}),
+            # "purpose_of_visit": forms.RadioSelect(choices=purpose_list),
             "product_description": forms.RadioSelect(choices=CHOICE),
             "service_attitude": forms.RadioSelect(choices=CHOICE),
             "customer_advice": forms.Textarea(attrs={'class': 'form-control'}),#attrs={'rows': "5", "cols": "70", "maxlength":"30"}), #attrs={'class': 'form-control'}),
             'signature': JSignatureWidget(jsignature_attrs={'height': '200px','width': '500'})# 'color': '#e0b642',
+        }
+
+
+class BusinessScheduleForm(forms.ModelForm):
+    class Meta:
+        model = BusinessSchedule
+        fields = ["staff_id","visit_date","factory_id","customer_id","purpose_of_visit",]
+        labels = {
+            "staff_id": "拜訪者",
+            "visit_date": "預計拜訪時間",
+            "factory_id": '廠區名稱',
+            "customer_id": '客戶名稱',
+            "purpose_of_visit": "拜訪目的",
+        }
+        widgets = {
+            "staff_id": forms.Select(attrs={'class': 'form-control'}),
+            "visit_date": forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            "factory_id": forms.Select(attrs={'class': 'form-control'}),
+            "customer_id": forms.Select(attrs={'class': 'form-control'}),
+            "purpose_of_visit": forms.Textarea(attrs={'class': 'form-control'})
         }

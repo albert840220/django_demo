@@ -4,9 +4,10 @@ from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
 
-from electrodes.forms import ProfileForm, form_validation_error, CalibrationForm, InspectionForm, PmScheduleForm, CustomerForm, FactoryForm, EqptPhForm, EqptCodForm, CustomerSurveyForm
+from electrodes.forms import ProfileForm, form_validation_error, CalibrationForm, InspectionForm, PmScheduleForm, \
+    CustomerForm, FactoryForm, EqptPhForm, EqptCodForm, CustomerSurveyForm, BusinessScheduleForm
 from electrodes.models import Profile, Calibration, Inspection, Factory, EqptPh, EqptCod, Customer, PmSchedule, \
-    Staff, CustomerSurvey
+    Staff, CustomerSurvey, BusinessSchedule
 
 # 多條件查詢圖表
 from plotly.offline import plot
@@ -28,20 +29,43 @@ import datetime as dt
 import dateutil.relativedelta
 from django import forms
 
+def form_business_schedule(request):
+    if request.method == 'POST':
+        form = BusinessScheduleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/business")
+    else:
+        form = BusinessScheduleForm()
+    return render(request, 'add_business.html',{"form": form})
+
+def tables_business_schedule(request):
+    business = BusinessSchedule.objects.all()
+    business_list = [{
+        "id": r.id,
+        "staff_name": r.staff_id.name,
+        "visit_date": str(r.visit_date),
+        "factory_id": r.factory_id.name,
+        "customer_id": r.customer_id.customer_name,
+        "purpose_of_visit": r.purpose_of_visit,
+    } for r in business]
+    return render(request, "tables_business_schedule.html", {"business_schedule": json.dumps(business_list)})
+
 
 def tables_customer_survey(request):
     survey = CustomerSurvey.objects.all()
     survey_list = [{
         "id": r.id,
-        "company": r.company,
-        "purpose_of_visit": r.purpose_of_visit,
+        "company": r.form_id.factory_id.name,
+        "purpose_of_visit": r.form_id.purpose_of_visit,
     } for r in survey]
     return render(request, "tables_customer_survey.html", {"survey": json.dumps(survey_list)})
 
 
 def display_png(request, id):
     survey = CustomerSurvey.objects.get(id=id)
-    return render(request, 'display_sign.html',{"survey":survey})
+    business = BusinessSchedule.objects.get(id=survey.form_id.id)
+    return render(request, 'display_sign.html',{"survey":survey,"business": business})
 
 
 def form_customer_survey(request):
@@ -61,7 +85,7 @@ def form_customer_survey(request):
             #     print(signature_file_path)
     else:
         form = CustomerSurveyForm()
-    return render(request, 'signature.html',{"form": form})
+    return render(request, 'add_signature.html',{"form": form})
 
 
 def default_work_schedule(request):

@@ -37,6 +37,8 @@ urlpatterns = [
     path("survey/new", v.form_customer_survey),
     path("png/<str:id>", v.display_png),
     path("survey", v.tables_customer_survey),
+    path("business", v.tables_business_schedule),
+    path("business/new", v.form_business_schedule),
 
 ]
 

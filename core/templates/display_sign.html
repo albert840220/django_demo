@@ -11,18 +11,36 @@
         <div class="card-body">
             <div class="row">
                 <div class="mb-2">
-                    <b class="text-uppercase text-muted">公司名稱:</b>
-                    {{ survey.company }}
+                    <b class="text-uppercase text-muted">拜訪日:</b>
+                    {{ business.visit_date }}
                 </div>
                 <div class="mb-2">
-                    <b class="text-uppercase text-muted">工作現場:</b>
-                    <br>
-                    <!-- {{ survey.purpose_of_visit }} -->
+                    <b class="text-uppercase text-muted">拜訪者:</b>
+                    {{ business.staff_id.name }}
                 </div>
                 <div class="mb-2">
                     <b class="text-uppercase text-muted">拜訪目的:</b>
-                    {{ survey.purpose_of_visit }}
+                    {{ business.purpose_of_visit }}
                 </div>
+                <div class="mb-2">
+                    <b class="text-uppercase text-muted">公司名稱:</b>
+                    {{ business.factory_id.name }}
+                </div>
+                <div class="mb-2">
+                    <b class="text-uppercase text-muted">客戶名稱:</b>
+                    {{ business.customer_id.customer_name }}
+                </div>
+                <div class="mb-2">
+                    <b class="text-uppercase text-muted">簽名:</b>
+                    {% load jsignature_filters %}
+                    <img src="{{ survey.signature|signature_base64 }}"/>
+                </div>
+                <!-- <div class="mb-2">
+                    <b class="text-uppercase text-muted">工作現場:</b>
+                    <br>
+                    {{ survey.purpose_of_visit }}
+                </div> -->
+                
                 <div class="mb-2">
                     <b class="text-uppercase text-muted">產品說明:</b>
                     {{ survey.product_description }}
@@ -35,11 +53,7 @@
                     <b class="text-uppercase text-muted">客戶建議:</b>
                     {{ survey.customer_advice }}
                 </div>
-                <div class="mb-2">
-                    <b class="text-uppercase text-muted">簽名:</b>
-                    {% load jsignature_filters %}
-                    <img src="{{ survey.signature|signature_base64 }}"/>
-                </div>
+                
             </div>
         </div>
     </div>
