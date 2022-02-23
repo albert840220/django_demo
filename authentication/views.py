@@ -30,12 +30,15 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect("/report_write")
+                # if request.user.groups.all():
+                if request.user.groups.all()[0].name == '未定義':
+                    return redirect("/call_it")
+                else:
+                    return redirect("home page")  # 登入後自動導向首頁
             else:
                 msg = 'Invalid credentials'
         else:
             msg = 'Error validating the form'
-
     return render(request, "accounts/login.html", {"form": form, "msg": msg})
 
 
