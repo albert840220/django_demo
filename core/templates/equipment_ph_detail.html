@@ -1,0 +1,156 @@
+{% extends "layouts/base.html" %} {% block stylesheets %}{% endblock stylesheets %} {% block title %}pH-{{ eqpt_ph.sn }}{% endblock title %} {% block content %}
+<main class="content">
+    <br>
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm components-section">
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-lg-4 col-sm-6">
+                        <!-- Form -->
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">廠商名稱</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.factory_id.name }}
+                                </p>
+                            </div>
+                        </div>
+                        <!-- End of Form -->
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">機型</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.type }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">機台序號</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.sn }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">上次保養日</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.last_pm }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">上次PM人員</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.last_pm_staff.name }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <!-- Form -->
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">標準液A上次更換日</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="{% if today > eqpt_ph.standard_a %} text-danger {% else %} text-primary {% endif %} mb-0">
+                                    {{ eqpt_ph.standard_a }}
+                                </p>
+                            </div>
+                        </div>
+                        <!-- End of Form -->
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">標準液B上次更換日</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.standard_b }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">標準液B上次更換日</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.standard_b }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">SV1上次更換日</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.sv1_ph }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">SV2上次更換日</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.sv2_ph }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">幫浦上次更換日</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.pump_ph }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <!-- Form -->
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">SV1更換週期(月)</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.sv1_ph_lifetime }}
+                                </p>
+                            </div>
+                        </div>
+                        <!-- End of Form -->
+                        <div class="mb-3">
+                            <div class='col-sm-12'>
+                                <b class="text-uppercase text-muted">SV2更換週期(月)</b>
+                            </div>
+                            <div class='col-sm-12'>
+                                <p class="text-primary mb-0">
+                                    {{ eqpt_ph.sv2_ph_lifetime }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+{% endblock content %} {% block javascripts %}{% endblock javascripts %}

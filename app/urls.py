@@ -12,6 +12,5 @@ urlpatterns = [
     path('', views.index, name='home'),
 
     # Matches any html file
-    re_path(r'^.*\.html', views.pages, name='pages'),
-
+    # re_path(r'^.*\.html', views.pages, name='pages'), #打xxx.html會顯示
 ]

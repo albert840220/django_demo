@@ -1,0 +1,25 @@
+{% extends "layouts/base.html" %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block title %}新增機台{% endblock title %}
+
+{% block content %}
+<main class="content">
+  <br>
+  <h3>新增機台</h3>
+  <div class="col-md-12">
+    <div class="card border-light shadow-sm components-section">
+      <div class="card-body">
+        <form action="new" method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" class="btn btn-primary" value="提交">
+      </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+
+{% block javascripts %}{% endblock javascripts %}

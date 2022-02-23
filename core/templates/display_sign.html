@@ -1,0 +1,48 @@
+{% extends "layouts/base.html" %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block title %}簽名{% endblock title %}
+
+{% block content %}
+<main class="content">
+    <br>
+    <div class="card border-light shadow-sm components-section">
+        <div class="card-body">
+            <div class="row">
+                <div class="mb-2">
+                    <b class="text-uppercase text-muted">公司名稱:</b>
+                    {{ survey.company }}
+                </div>
+                <div class="mb-2">
+                    <b class="text-uppercase text-muted">工作現場:</b>
+                    <br>
+                    <!-- {{ survey.purpose_of_visit }} -->
+                </div>
+                <div class="mb-2">
+                    <b class="text-uppercase text-muted">拜訪目的:</b>
+                    {{ survey.purpose_of_visit }}
+                </div>
+                <div class="mb-2">
+                    <b class="text-uppercase text-muted">產品說明:</b>
+                    {{ survey.product_description }}
+                </div>
+                <div class="mb-2">
+                    <b class="text-uppercase text-muted">服務態度:</b>
+                    {{ survey.service_attitude }}
+                </div>
+                <div class="mb-2">
+                    <b class="text-uppercase text-muted">客戶建議:</b>
+                    {{ survey.customer_advice }}
+                </div>
+                <div class="mb-2">
+                    <b class="text-uppercase text-muted">簽名:</b>
+                    {% load jsignature_filters %}
+                    <img src="{{ survey.signature|signature_base64 }}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block title %}客戶意見回饋{% endblock title %}
+
+{% block content %}
+<main class="content">
+  <br>
+  <div class="card border-light shadow-sm components-section">
+    <div class="card-body">
+      <h3>客戶意見回饋</h3>
+      {{ form.media }}
+      <form action="" method="post">
+        {{ form.as_p }}
+        <!-- <div class="span4">
+          {{ form.product_description.0}}
+          {{ form.product_description.1}}
+          {{ form.product_description.2}}
+        </div> -->
+        <input type="submit" class="btn btn-primary" value="提交" />
+        {% csrf_token %}
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+
+{% block javascripts %}
+<script type="text/javascript">
+$('input[type=radio][name=choices]').change(function() {
+	$('input[type=text][id="id_product_description_2"]').prop(
+  	'disabled',
+    function(i, v) {
+    	return !v;
+    });
+});
+</script>
+{% endblock javascripts %}

@@ -8,14 +8,19 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
-
+# decorators
+from electrodes.decorators import role_required
 
 @login_required(login_url="/login/")
+@role_required(allowed_roles=['技術部','發展課','網站管理員','人事','未定義'])
 def index(request):
     """
-    已登入後的 http://127.0.0.1:8000/ 自動導向 /report_write
+    404頁面 回首頁的按鈕
     """
-    return redirect("/report_write")
+    print("back to home")
+    if request.user.groups.all()[0].name == '未定義':
+        return redirect('/call_it')
+    return redirect('home page')
 
 @login_required(login_url="/login/")
 def pages(request):

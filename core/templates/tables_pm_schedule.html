@@ -1,0 +1,81 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} 工作排程 {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<main class="content">
+    <br>
+    <div class="d-flex justify-content-between w-100 flex-wrap">
+        <div class="mb-3 mb-lg-0">
+            <h3>工作排程</h3>
+        </div>
+        <div>
+            <a href="schedule/new" class="btn btn-outline-gray"><i class="fas fa-plus mr-2 mr-1"></i>新增</a>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table id="example" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>預計派工時間</th>
+                    <th>客戶名稱</th>
+                    <th>廠區名稱</th>
+                    <th>機型</th>
+                    <th>機台序號</th>
+                    <th>問題情況</th>
+                    <th>作業者</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
+</script> -->
+<script type="text/javascript">
+        $(document).ready(function () {
+            var data = {{ schedule_list|safe }};
+
+            var table = $('#example').DataTable({
+                "scrollX": true,
+                "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                data: data,
+                columns: [
+                    { data: 'next_pm_time'},
+                    { data: 'customer_name'},
+                    { data: 'factory_name'},
+                    { data: 'model'},
+                    { data: 'sn' },
+                    { data: 'description' },
+                    { data: 'staff_name' },
+                    { data: 'id',
+                    render: function(data, type, row, meta){
+            if(type === 'display'){
+                data = '<a href="schedule/close/' + data + '" class="btn btn-sm btn-primary">' + '結案' + '</a>';
+            }
+            
+            return data;
+         }
+                },
+                ]
+            });
+        });
+</script>
+{% endblock javascripts %}

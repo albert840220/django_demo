@@ -1,50 +1,46 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} 電極查詢 {% endblock %}
+{% block title %} 趨勢圖查詢 {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
 
-    <main class="content">
-
-        <div class="col-sm-6">
-            <h3>{{ remind }}</h3>
-        </div>
-        <div>
-            <div class="col-md-12" style="display: inline-block;">
+<main class="content">
+    <div>
+        <div class="col-md-12" style="display: inline-block;">
             {% autoescape off %}
             {{ plot_div }}
 
             {% endautoescape %}
-            </div>
-            <div class="col-md-12" style="display: inline-block;">
-                {% autoescape off %}
-                {{ plot_div1 }}
-                {% endautoescape %}
-            </div>
-            <div class="col-md-12" style="display: inline-block;">
-                {% autoescape off %}
-                {{ plot_compare }}
-                {% endautoescape %}
-            </div>
         </div>
-        <form action = "/trends" method = "post">
-            {% csrf_token %}
-            <div>
-                <label for="sn_number">電極序號: </label>
-            <input id="sn_number" type="text" name="sn_number">
-            </div>
-            <div>
-                <label for="start_time">開始時間: </label>
+        <div class="col-md-12" style="display: inline-block;">
+            {% autoescape off %}
+            {{ plot_div1 }}
+            {% endautoescape %}
+        </div>
+        <div class="col-md-12" style="display: inline-block;">
+            {% autoescape off %}
+            {{ plot_compare }}
+            {% endautoescape %}
+        </div>
+    </div>
+    <form action="/trends" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="sn_number">電極序號: </label>
+            <input type="text" id="sn_number" name="sn_number">
+        </div>
+        <div>
+            <label for="start_time">開始時間: </label>
             <input id="start_time" type="date" name="start_time">
-            </div>
-            <div>
-                <label for="end_time">結束時間: </label>
-                <input id="end_time" type="date" name="end_time">
-            </div>
-            <!-- <div>
+        </div>
+        <div>
+            <label for="end_time">結束時間: </label>
+            <input id="end_time" type="date" name="end_time">
+        </div>
+        <!-- <div>
                 <label for="item">項目:</label>
                 <select name="item_id">
                     {% for item in items %}
@@ -52,12 +48,32 @@
                     {% endfor %}
                 </select> 
             </div> -->
-            <input type="submit" value="搜尋">
-        </form>
-    </main>
+        <input type="submit" class="btn btn-primary" value="搜尋">
+        <div class="col-sm-6">
+            <h3>{{ remind }}</h3>
+        </div>
+    </form>
+</main>
 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>  
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+<link href=  
+"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" type="text/css" />    
+<script>
+    $( function() {
+      var availableTags = [
+          {% for calibration in calibrations %}
+              "{{calibration.sensor_sn}}",
+          {% endfor %}
+      ];
+      $( "#sn_number" ).autocomplete({
+        source: availableTags
+      });
+    } );
+    </script>
 {% endblock javascripts %}

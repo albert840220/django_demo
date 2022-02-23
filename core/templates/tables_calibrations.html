@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} 電極查詢 {% endblock %}
+{% block title %} 校正紀錄查詢 {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
@@ -12,35 +12,33 @@
 <main class="content">
 
     <div class="table-settings mb-4">
-        
+
     </div>
     <div class="col-md-12">
         <table id="example" class="table table-striped">
             <!--                  <table id="example" class="display" style="width:100%">-->
             <thead>
                 <tr>
-                    <th>表單編號</th>
-                    <th>負責人</th>
-                    <th>檢測報告</th>
+                    {% for column_name in column_names %}
+                    <th>{{ column_name }}</th>
+                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
                 <!-- Item -->
-                {% if transactions is not True %}
                 {% for record in records %}
                 <tr>
-                    <td>{{ record.form_id }}</td>
-                    <td>{{ record.hswe_name }}</td>
-                    <td><span><a href="/download/{{ record.form_id }}" class="btn btn-primary">Download</a></span></td>   
+                    {% for info in record %}
+                    <td>{{ info }}</td>
+                    {% endfor %}
                 </tr>
                 {% endfor %}
-                {% endif %}
             </tbody>
             <tfoot>
                 <tr>
-                    <th>表單編號</th>
-                    <th>負責人</th>
-                    <th>file</th>
+                    {% for column_name in column_names %}
+                    <th>{{ column_name }}</th>
+                    {% endfor %}
                 </tr>
             </tfoot>
         </table>
@@ -70,37 +68,41 @@
 
         // DataTable
         var table = $('#example').DataTable({
-            // dom: 'Bfrtip',
-            // buttons: [
-            //     {
-            //           extend: 'excel',
-            //           text: 'Excel',
-            //           className: 'btn btn-default',
-            //           exportOptions: {
-            //               columns: ':not(.notexport)'
-            //           },},
-            //           {
-            //           extend: 'csv',
-            //           text: 'CSV',
-            //           className: 'btn btn-default',
-            //           exportOptions: {
-            //               columns: ':not(.notexport)'
-            //           },},
-            //           {
-            //           extend: 'pdf',
-            //           text: 'PDF',
-            //           className: 'btn btn-default',
-            //           exportOptions: {
-            //               columns: ':not(.notexport)'
-            //           },}, 
-            //            {
-            //           extend: 'print',
-            //           text: '列印',
-            //           className: 'btn btn-default',
-            //           exportOptions: {
-            //               columns: ':not(.notexport)'
-            //           },}, 
-            // ],
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excel',
+                    text: 'Excel',
+                    className: 'btn btn-default',
+                    exportOptions: {
+                        columns: ':not(.notexport)'
+                    },
+                },
+                {
+                    extend: 'csv',
+                    text: 'CSV',
+                    className: 'btn btn-default',
+                    exportOptions: {
+                        columns: ':not(.notexport)'
+                    },
+                },
+                {
+                    extend: 'pdf',
+                    text: 'PDF',
+                    className: 'btn btn-default',
+                    exportOptions: {
+                        columns: ':not(.notexport)'
+                    },
+                },
+                {
+                    extend: 'print',
+                    text: '列印',
+                    className: 'btn btn-default',
+                    exportOptions: {
+                        columns: ':not(.notexport)'
+                    },
+                },
+            ],
             "autoWidth": true,
             "scrollX": true,
             // "id": [

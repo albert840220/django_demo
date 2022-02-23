@@ -108,7 +108,6 @@ function inContainer(el) {
     );
 }
 
-// TODO: Refactor this so it can be easily tested
 /* istanbul ignore next */
 function eventHandler() {
     var trackedElements = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};

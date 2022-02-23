@@ -1,0 +1,69 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} 客戶資料 {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<main class="content">
+    <br>
+    <div class="d-flex justify-content-between w-100 flex-wrap">
+        <div class="mb-3 mb-lg-0">
+            <h3>客戶資料</h3>
+        </div>
+        <div>
+            <a href="/customer/new" class="btn btn-outline-gray"><i class="fas fa-plus mr-2 mr-1"></i>新增</a>
+        </div>
+    </div>
+    <div class="table-settings mb-4">
+
+    </div>
+    <div class="col-md-12">
+        <table id="example" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>廠區名稱</th>
+                    <th>地址</th>
+                    <th>客戶名稱</th>
+                    <th>手機</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
+</script> -->
+<script type="text/javascript">
+        $(document).ready(function () {
+            var data = {{ customer_list|safe }};
+
+            var table = $('#example').DataTable({
+                "scrollX": true,
+                data: data,
+                columns: [
+                    { data: 'factory_name'},
+                    { data: 'address'},
+                    { data: 'name'},
+                    { data: 'phone'},
+                    { data: 'email' },
+                ]
+            });
+        });
+</script>
+{% endblock javascripts %}

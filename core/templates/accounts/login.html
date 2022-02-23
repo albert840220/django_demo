@@ -1,6 +1,6 @@
 {% extends "layouts/base-fullscreen.html" %}
 
-{% block title %} Login {% endblock %} 
+{% block title %} 登入 {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -19,11 +19,12 @@
                         <div class="signin-inner my-3 my-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
 
                             <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="mb-0 h3">
-                                    <a target="_blank"
-                                       href="https://themesberg.com/product/django/volt-admin-dashboard-template"></a>Sign IN
-                                </h1>
-                                <br />
+                                <img class="img-fluid w-75" src="/static/assets/img/re2_logo.png" alt="dkk-toa">
+<!--                                <h1 class="mb-0 h3">-->
+<!--                                    <a target="_blank"-->
+<!--                                       href="https://themesberg.com/product/django/volt-admin-dashboard-template"></a>公司-->
+<!--                                </h1>-->
+<!--                                <br />-->
                                 <!-- <p>
                                     {% if msg %}
                                         {{ msg | safe }}
@@ -39,7 +40,7 @@
 
                                 <!-- Form -->
                                 <div class="form-group mb-4">
-                                    <label for="email">Username</label>
+                                    <label for="email">帳號</label>
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon1"><span class="fas fa-user-circle"></span></span>
                                         {{ form.username }}
@@ -49,7 +50,7 @@
                                 <div class="form-group">
                                     <!-- Form -->
                                     <div class="form-group mb-4">
-                                        <label for="password">Your Password</label>
+                                        <label for="password">密碼</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="basic-addon2"><span class="fas fa-unlock-alt"></span></span>
                                             {{ form.password }}
@@ -57,20 +58,20 @@
                                     </div>
                                     <!-- End of Form -->
 
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <!-- <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
                                             <label class="form-check-label" for="defaultCheck5">
                                               Remember me
                                             </label>
                                         </div>
-                                        <!-- <div class="form-check">
+                                        <div class="form-check">
                                             <a href="{% url 'register' %}" class="small text-right">Register</a>
-                                        </div> -->
-                                    </div>
+                                        </div>
+                                    </div> -->
 
                                 </div>
-                                <button type="submit" name="login" class="btn btn-block btn-primary">Sign in</button>
+                                <button type="submit" name="login" class="btn btn-block btn-primary">登入</button>
                             </form>
 
                            

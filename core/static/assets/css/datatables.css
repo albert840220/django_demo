@@ -1,0 +1,23 @@
+body {
+    font: 90%/1.45em "Helvetica Neue", HelveticaNeue, Verdana, Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #fff;
+}
+
+td.error {
+    font-weight: bold;
+    color: white;
+    background-color: red;
+}
+
+td.warning {
+    font-weight: bold;
+    color: black;
+    background-color: yellow;
+}
+
+h3 {
+    color: green;
+}

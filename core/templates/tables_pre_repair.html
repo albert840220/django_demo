@@ -1,0 +1,62 @@
+{% extends "layouts/base.html" %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block title %}預知保養項目{% endblock title %}
+
+{% block content %}
+<main class="content">
+    <br>
+  <h3>預知保養項目</h3>
+  <div class="table-settings mb-4">
+
+  </div>
+  <div class="col-md-12">
+      <table id="example" class="table table-striped">
+          <!--                  <table id="example" class="display" style="width:100%">-->
+          <thead>
+              <tr>
+                  <th>廠區名稱</th>
+                  <th>機型</th>
+                  <th>機台序號</th>
+                  <th>預計保養日</th>
+                  <th>派工單</th>
+              </tr>
+          </thead>
+          <tbody>
+          </tbody>
+      </table>
+  </div>
+</main>
+{% endblock content %}
+
+{% block javascripts %}
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            var data = {{ all_eqpt|safe }};
+
+            var table = $('#example').DataTable({
+                "scrollX": true,
+                "order": [[ 3, "asc" ]],
+                data: data,
+                columns: [
+                    { data: 'factory_id'},
+                    { data: 'model'},
+                    { data: 'sn'},
+                    { data: 'last_pm' },
+                    { data: 'sn',
+                    render: function(data, type, row, meta){
+            if(type === 'display'){
+                data = '<a href="schedule/' + data + '" class="btn btn-sm btn-primary">' + '+' + '</a>';
+            } 
+            return data;
+         }
+                },
+                    
+                ]
+            });
+        });
+</script>{% endblock javascripts %}

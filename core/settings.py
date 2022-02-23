@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',  # Enable the inner app
-    'electrodes'
+    'electrodes',
+    'jsignature',
 ]
 
 MIDDLEWARE = [
@@ -72,19 +73,35 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# # 部署用
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hswe_db',
-        'USER': 'root',
-        'PASSWORD': '00000000',
-        'HOST': 'localhost',
+        'NAME': 'my_db',
+        'USER': 'user01',
+        'PASSWORD': 'user01hswe',
+        'HOST': 'mysql-hswe.cfl6uyzb4zlq.us-east-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         }
     }
 }
+
+# 本地測試用
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'my_db',
+#         'USER': 'root',
+#         'PASSWORD': '00000000',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+#         }
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -116,7 +133,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = False # 若為True 時區會是UTC
 
 #############################################################
 # SRC: https://devcenter.heroku.com/articles/django-assets
@@ -132,5 +149,8 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = (
     os.path.join(CORE_DIR, 'core/static'),
 )
+
+JSIGNATURE_JQUERY = 'admin'
+JSIGNATURE_HEIGHT = '100'
 #############################################################
 #############################################################

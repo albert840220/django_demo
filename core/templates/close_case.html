@@ -1,0 +1,109 @@
+{% extends "layouts/base.html" %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block title %}結案{% endblock title %}
+
+{% block content %}
+<main class="content">
+    <br>
+    <h3>結案表單</h3>
+    <div class="row mb-4">
+        <div class="col-lg-4 col-sm-6">
+            <!-- Form -->
+            <div class="mb-3">
+                <div class='col-sm-12'>
+                    <b class="text-uppercase text-muted">預計派工時間</b>
+                </div>
+                <div class='col-sm-12'>
+                    <p class="text-primary mb-0">
+                        {{ schedule.next_maintenance_planned_on }}
+                    </p>
+                </div>
+            </div>
+            <!-- End of Form -->
+            <div class="mb-3">
+                <div class='col-sm-12'>
+                    <b class="text-uppercase text-muted">客戶名稱</b>
+                </div>
+                <div class='col-sm-12'>
+                    <p class="text-primary mb-0">
+                        {{ schedule.customer_id.customer_name }}
+                    </p>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class='col-sm-12'>
+                    <b class="text-uppercase text-muted">廠區名稱</b>
+                </div>
+                <div class='col-sm-12'>
+                    <p class="text-primary mb-0">
+                        {{ schedule.factory_id.name }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <!-- Form -->
+            <div class="mb-3">
+                <div class='col-sm-12'>
+                    <b class="text-uppercase text-muted">機型</b>
+                </div>
+                <div class='col-sm-12'>
+                    <p class="text-primary mb-0">
+                        {{ schedule.equipment_type }}
+                    </p>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class='col-sm-12'>
+                    <b class="text-uppercase text-muted">機台序號</b>
+                </div>
+                <div class='col-sm-12'>
+                    <p class="text-primary mb-0">
+                        {{ schedule.equipment_sn }}
+                    </p>
+                </div>
+            </div>
+            <!-- End of Form -->
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <!-- Form -->
+            <div class="mb-3">
+                <div class='col-sm-12'>
+                    <b class="text-uppercase text-muted">問題情況</b>
+                </div>
+                <div class='col-sm-12'>
+                    <p class="text-primary mb-0">
+                        {{ schedule.description }}
+                    </p>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class='col-sm-12'>
+                    <b class="text-uppercase text-muted">作業者</b>
+                </div>
+                <div class='col-sm-12'>
+                    <p class="text-primary mb-0">
+                        {{ schedule.staff_id.name }}
+                    </p>
+                </div>
+            </div>
+            <!-- End of Form -->
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card border-light shadow-sm components-section">
+            <div class="card-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="btn btn-primary" value="提交">
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+{% block javascripts %}{% endblock javascripts %}
