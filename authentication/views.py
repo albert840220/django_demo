@@ -18,7 +18,7 @@ def login_view(request):
     """
     登入
     """
-    form = LoginForm(request.POST or None)
+    form = LoginForm(request.POST or None, initial={"username": "admin", "password": "0000"})
 
     msg = None
 
