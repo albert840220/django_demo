@@ -18,7 +18,7 @@
 
 <br />
 
-![Django Bootstrap 5 Volt - Template project provided by AppSeed.](https://raw.githubusercontent.com/albert840220/django-demo/master/media/django_demo.gif)
+![Django Bootstrap 5 Volt - Template project provided by AppSeed.](https://raw.githubusercontent.com/albert840220/django_demo/main/media/django_demo.gif)
 
 <br />
 
