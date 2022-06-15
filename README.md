@@ -40,6 +40,12 @@ $ # Create tables
 $ python manage.py makemigrations
 $ python manage.py migrate
 $
+$ # Create account
+$ python manage.py createsuperuser
+$ username: admin 
+$ email: admin@gmail.com
+$ Password: 0000
+$
 $ # Start the application (development mode)
 $ python manage.py runserver # default port 8000
 $

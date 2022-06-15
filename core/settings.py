@@ -73,35 +73,28 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# # 部署用
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'my_db',
-        'USER': 'user01',
-        'PASSWORD': 'user01hswe',
-        'HOST': 'mysql-hswe.cfl6uyzb4zlq.us-east-2.rds.amazonaws.com',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
-    }
-}
-
-# 本地測試用
+# MySQL
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'my_db',
-#         'USER': 'root',
-#         'PASSWORD': '00000000',
-#         'HOST': 'localhost',
+#         'USER': 'user01',
+#         'PASSWORD': 'user01hswe',
+#         'HOST': 'mysql-hswe.cfl6uyzb4zlq.us-east-2.rds.amazonaws.com',
 #         'PORT': '3306',
 #         'OPTIONS': {
 #             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
 #         }
 #     }
 # }
+
+# sqlite3
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME'  : 'db.sqlite3',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

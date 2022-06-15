@@ -20,3 +20,4 @@ tenacity==8.0.1
 toml==0.10.2
 Unipath==1.1
 whitenoise==5.3.0
+django-jsignature==0.11

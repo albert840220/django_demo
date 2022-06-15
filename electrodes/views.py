@@ -398,15 +398,15 @@ def tables_ph_parts(request):
 
 
 @login_required(login_url="/login/")
-@role_required(allowed_roles=['技術部', '發展課', '網站管理員', '人事', '未定義'])
+# @role_required(allowed_roles=['技術部', '發展課', '網站管理員', '人事', '未定義'])
 def welcome(request):
-    if request.user.groups.all()[0].name == '未定義':
-        return redirect('/call_it')
+    # if request.user.groups.all()[0].name == '未定義':
+    #     return redirect('/call_it')
     return render(request, 'welcome.html')  # 必須用 render ，如使用redirect會一直重複指向自己
 
 
 @login_required(login_url="/login/")
-@role_required(allowed_roles=['技術部', '發展課', '網站管理員'])
+# @role_required(allowed_roles=['技術部', '發展課', '網站管理員'])
 def tables_calibration(request):
     """
     校正紀錄查詢
@@ -426,14 +426,14 @@ def tables_calibration(request):
 
 
 @login_required(login_url="/login/")
-@role_required(allowed_roles=['未定義'])
+# @role_required(allowed_roles=['未定義'])
 # TODO 建立使用者時，自訂預設群組
 def call_it(request):
     return render(request, 'call_it.html')
 
 
 @login_required(login_url="/login/")
-@role_required(allowed_roles=['技術部', '發展課', '網站管理員'])
+# @role_required(allowed_roles=['技術部', '發展課', '網站管理員'])
 def chartjs(request):
     """
     折線圖, chart-js寫法
@@ -449,7 +449,7 @@ def chartjs(request):
 
 
 @login_required(login_url="/login/")
-@role_required(allowed_roles=['技術部', '發展課', '網站管理員'])
+# @role_required(allowed_roles=['技術部', '發展課', '網站管理員'])
 def multi_condition_plot(request):
     """多條件查詢 + 畫折線圖"""
     start_date = None
@@ -520,7 +520,7 @@ def multi_condition_plot(request):
 
 
 @login_required(login_url="/login/")
-@role_required(allowed_roles=['技術部', '網站管理員'])
+# @role_required(allowed_roles=['技術部', '網站管理員'])
 def report_write(request):
     """填寫檢測報告書"""
     if request.method == "POST":
@@ -562,7 +562,7 @@ def report_write(request):
 
 
 @login_required(login_url="/login/")
-@role_required(allowed_roles=['技術部', '網站管理員'])
+# @role_required(allowed_roles=['技術部', '網站管理員'])
 def exportToExcel(request, form_id):
     """匯出檢測報告書"""
     inspection = Inspection.objects.get(form_id=form_id)
@@ -597,7 +597,7 @@ def exportToExcel(request, form_id):
 
 
 @login_required(login_url="/login/")
-@role_required(allowed_roles=['技術部', '網站管理員'])
+# @role_required(allowed_roles=['技術部', '網站管理員'])
 def tables_report(request):
     """檢測報告書查詢"""
     records = Inspection.objects.values('form_id', 'hswe_name')

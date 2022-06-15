@@ -31,10 +31,10 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 # if request.user.groups.all():
-                if request.user.groups.all()[0].name == '未定義':
-                    return redirect("/call_it")
-                else:
-                    return redirect("home page")  # 登入後自動導向首頁
+                # if request.user.groups.all()[0].name == '未定義':
+                #     return redirect("/call_it")
+                # else:
+                return redirect("home page")  # 登入後自動導向首頁
             else:
                 msg = 'Invalid credentials'
         else:

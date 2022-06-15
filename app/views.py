@@ -12,14 +12,14 @@ from django import template
 from electrodes.decorators import role_required
 
 @login_required(login_url="/login/")
-@role_required(allowed_roles=['技術部','發展課','網站管理員','人事','未定義'])
+# @role_required(allowed_roles=['技術部','發展課','網站管理員','人事','未定義'])
 def index(request):
     """
     404頁面 回首頁的按鈕
     """
     print("back to home")
-    if request.user.groups.all()[0].name == '未定義':
-        return redirect('/call_it')
+    # if request.user.groups.all()[0].name == '未定義':
+    #     return redirect('/call_it')
     return redirect('home page')
 
 @login_required(login_url="/login/")
